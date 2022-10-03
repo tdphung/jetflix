@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
 }
 
@@ -7,16 +7,11 @@ android {
     compileSdk versions.targetSdk
 
     defaultConfig {
-        applicationId "com.littlewind.myjetflix"
         minSdk versions.minSdk
         targetSdk versions.targetSdk
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary true
-        }
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -32,37 +27,19 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures {
-        compose true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion versions.compose_compiler
-    }
-    packagingOptions {
-        resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
-        }
-    }
 }
 
 dependencies {
 
-    implementation project(path: ':base')
-//    implementation project(path: ':ui:discover')
-
     implementation libraries.androidCore
-    implementation libraries.compose_ui
+
+    implementation libraries.activity_compose
     implementation libraries.compose_material
     implementation libraries.compose_ui_tooling_preview
-    implementation libraries.lifecycle_runtime
-    implementation libraries.activity_compose
 
     debugImplementation libraries.compose_ui_tooling
-    debugImplementation libraries.compose_ui_test_manifest
 
     testImplementation libraries.junit
     androidTestImplementation libraries.junitExt
     androidTestImplementation libraries.espresso
-    androidTestImplementation libraries.compose_ui_test_junit4
-    androidTestImplementation libraries.compose_ui_test_junit4
 }

@@ -1,4 +1,4 @@
-package com.littlewind.myjetflix
+package com.littlewind.myjetflix.home
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -22,7 +22,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+//                    Discover()
+                    Greeting("okok")
                 }
             }
         }
