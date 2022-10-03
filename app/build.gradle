@@ -43,12 +43,14 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+    namespace 'com.littlewind.myjetflix'
 }
 
 dependencies {
 
     implementation project(path: ':base')
-//    implementation project(path: ':ui:discover')
+    implementation project(path: ':presentation')
+    implementation project(path: ':common')
 
     implementation libraries.androidCore
     implementation libraries.compose_ui

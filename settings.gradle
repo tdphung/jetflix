@@ -16,4 +16,6 @@ dependencyResolutionManagement {
 rootProject.name = "My JetFlix"
 include ':app'
 include ':base'
-//include ':ui:discover'
+include ':presentation'
+include ':domain'
+include ':common'
