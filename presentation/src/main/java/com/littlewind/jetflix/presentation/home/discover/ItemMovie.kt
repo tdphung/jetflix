@@ -30,7 +30,7 @@ import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import com.littlewind.android.base.functional.ValueCallBack
 import com.littlewind.jetflix.common.ui.theme.imageTintExt
-import com.littlewind.jetflix.domain.model.Movie
+import com.littlewind.jetflix.domain.model.movie.Movie
 import com.littlewind.jetflix.presentation.R
 
 @OptIn(ExperimentalMaterialApi::class)

@@ -18,9 +18,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.littlewind.android.base.functional.ValueCallBack
 import com.littlewind.android.base.functional.VoidCallBack
 import com.littlewind.jetflix.common.ui.theme.LocalIsAppInDarkTheme
+import com.littlewind.jetflix.common.ui.widget.loading.LoadingColumn
+import com.littlewind.jetflix.domain.model.genre.Genre
+import com.littlewind.jetflix.domain.model.movie.FilterMovieParams
 import com.littlewind.jetflix.presentation.R
+import com.littlewind.jetflix.presentation.home.discover.filter.FilterBottomSheetContent
+import com.littlewind.jetflix.presentation.home.discover.filter.FilterHeader
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -28,17 +34,61 @@ import kotlinx.coroutines.launch
 fun DiscoverScreen() {
 
     val sheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
+    val filterViewModel = hiltViewModel<MoviesViewModel>()
+    val filterState = filterViewModel.filterState.collectAsState().value
+    val coroutineScope = rememberCoroutineScope()
+    val hideFilterBottomSheet: VoidCallBack = {
+        coroutineScope.launch {
+            sheetState.hide()
+        }
+    }
 
     ModalBottomSheetLayout(
         sheetState = sheetState,
         sheetContent = {
-            Text(
-                "Bottom Sheet",
-                modifier = Modifier.padding(vertical = 50.dp),
+            SheetContent(
+                filterState = filterState,
+                genres = filterViewModel.genres.collectAsState().value,
+                onOpen = {
+                    filterViewModel.fetchGenresIfNeeded()
+                },
+                onHideClicked = hideFilterBottomSheet,
+                onResetClicked = if (filterState == null) null else filterViewModel::resetFilterMovieParams,
+                onFilterStateChanged = filterViewModel::setFilterParams,
             )
         },
     ) {
         DiscoverScreenContent(sheetState)
+    }
+}
+
+@Composable
+private fun ColumnScope.SheetContent(
+    filterState: FilterMovieParams?,
+    genres: List<Genre>?,
+    onOpen: VoidCallBack,
+    onHideClicked: VoidCallBack,
+    onResetClicked: VoidCallBack?,
+    onFilterStateChanged: ValueCallBack<FilterMovieParams>,
+) {
+    LaunchedEffect(true) {
+        onOpen()
+//        filterViewModel.fetchGenresIfNeeded()
+    }
+
+    FilterHeader(onHideClicked = onHideClicked, onResetClicked = onResetClicked)
+
+    if (filterState == null || genres == null) {
+        LoadingColumn(
+            title = stringResource(id = R.string.loading_filter_options),
+            modifier = Modifier.fillMaxHeight(0.4f)
+        )
+    } else {
+        FilterBottomSheetContent(
+            filterState = filterState,
+            genres = genres,
+            onFilterStateChanged = onFilterStateChanged
+        )
     }
 }
 
@@ -60,7 +110,8 @@ private fun DiscoverScreenContent(
                         .background(MaterialTheme.colors.surface)
                         .padding(bottom = 2.dp)
                 ) {
-                    JetflixAppBar(isDarkTheme = isDarkTheme,
+                    JetflixAppBar(
+                        isDarkTheme = isDarkTheme,
                         onClickSetting = {
 
                         },

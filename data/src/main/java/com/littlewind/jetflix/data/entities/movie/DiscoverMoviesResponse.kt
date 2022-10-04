@@ -1,4 +1,4 @@
-package com.littlewind.jetflix.data.entities
+package com.littlewind.jetflix.data.entities.movie
 
 import com.google.gson.annotations.SerializedName
 

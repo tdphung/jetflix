@@ -1,8 +1,8 @@
-package com.littlewind.jetflix.data.entities
+package com.littlewind.jetflix.data.entities.movie
 
 import com.google.gson.annotations.SerializedName
 import com.littlewind.jetflix.data.utils.toPosterUrl
-import com.littlewind.jetflix.domain.model.Movie
+import com.littlewind.jetflix.domain.model.movie.Movie
 import javax.inject.Inject
 
 data class MovieResponse(

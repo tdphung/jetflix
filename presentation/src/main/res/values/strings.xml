@@ -12,5 +12,13 @@
     <string name="fetching_more_movies">Fetching More Movies</string>
     <string name="no_movies_found">No movies found for current search</string>
 
+    <string name="loading_filter_options">Loading filter options, please wait…</string>
+    <string name="include_adult">Include Adult</string>
     <string name="title_filter_bottom_sheet">Filter &amp; Sort Movies</string>
+    <string name="reset">RESET</string>
+    <string name="close_content_description">Close</string>
+
+    <string name="sort_order">Sort Order</string>
+    <string name="sort_by">Sort by</string>
+    <string name="genres">Genres</string>
 </resources>

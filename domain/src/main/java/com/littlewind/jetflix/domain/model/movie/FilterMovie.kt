@@ -1,4 +1,4 @@
-package com.littlewind.jetflix.domain.model
+package com.littlewind.jetflix.domain.model.movie
 
 import androidx.annotation.StringRes
 import com.littlewind.jetflix.domain.R

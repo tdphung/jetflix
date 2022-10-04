@@ -1,8 +1,8 @@
 package com.littlewind.jetflix.domain.interactors
 
 import androidx.paging.PagingData
-import com.littlewind.jetflix.domain.model.FilterMovieParams
-import com.littlewind.jetflix.domain.model.Movie
+import com.littlewind.jetflix.domain.model.movie.FilterMovieParams
+import com.littlewind.jetflix.domain.model.movie.Movie
 import com.littlewind.jetflix.domain.repository.MovieRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

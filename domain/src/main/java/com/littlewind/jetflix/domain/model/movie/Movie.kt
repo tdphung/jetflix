@@ -1,4 +1,4 @@
-package com.littlewind.jetflix.domain.model
+package com.littlewind.jetflix.domain.model.movie
 
 data class Movie(
     val id: Int,

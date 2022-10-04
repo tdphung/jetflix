@@ -3,7 +3,6 @@ package com.littlewind.jetflix.presentation.home.discover
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
@@ -18,7 +17,7 @@ import com.littlewind.jetflix.common.ui.widget.error.ErrorColumn
 import com.littlewind.jetflix.common.ui.widget.error.ErrorRow
 import com.littlewind.jetflix.common.ui.widget.loading.LoadingColumn
 import com.littlewind.jetflix.common.ui.widget.loading.LoadingRow
-import com.littlewind.jetflix.domain.model.Movie
+import com.littlewind.jetflix.domain.model.movie.Movie
 import com.littlewind.jetflix.presentation.R
 
 private const val COLUMN_COUNT = 2
