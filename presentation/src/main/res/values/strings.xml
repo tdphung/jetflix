@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="movie_poster_content_description">Poster Image of %1$s</string>
+
+    <string name="fetching_movies">Fetching Movies</string>
+    <string name="fetching_more_movies">Fetching More Movies</string>
+    <string name="no_movies_found">No movies found for current search</string>
+
+    <string name="title_filter_bottom_sheet">Filter &amp; Sort Movies</string>
 </resources>

@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace 'com.littlewind.jetflix.domain'
+    namespace 'com.littlewind.jetflix.data'
     compileSdk versions.targetSdk
 
     defaultConfig {
@@ -33,10 +33,12 @@ android {
 }
 
 dependencies {
-
-    implementation project(path: ':base')
+    implementation project(":domain")
 
     implementation libraries.paging_compose
+
+    implementation libraries.retrofit
+    implementation libraries.gson
 
     implementation libraries.hilt_library
     kapt libraries.hilt_compiler

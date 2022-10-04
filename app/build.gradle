@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -51,6 +53,8 @@ dependencies {
     implementation project(path: ':base')
     implementation project(path: ':presentation')
     implementation project(path: ':common')
+    implementation project(path: ':domain')
+    implementation project(path: ':data')
 
     implementation libraries.androidCore
     implementation libraries.compose_ui
@@ -58,9 +62,20 @@ dependencies {
     implementation libraries.compose_ui_tooling_preview
     implementation libraries.lifecycle_runtime
     implementation libraries.activity_compose
+    implementation libraries.navigation_compose
 
     debugImplementation libraries.compose_ui_tooling
     debugImplementation libraries.compose_ui_test_manifest
+
+    implementation libraries.hilt_library
+    kapt libraries.hilt_compiler
+
+    implementation libraries.retrofit
+    implementation libraries.retrofitConverter
+    implementation libraries.gson
+    implementation libraries.stetho
+    implementation libraries.stethoOkhttp3
+    implementation libraries.okhttp3_logging_interceptor
 
     testImplementation libraries.junit
     androidTestImplementation libraries.junitExt

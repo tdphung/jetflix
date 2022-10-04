@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sort_order_descending">Descending</string>
+    <string name="sort_order_ascending">Ascending</string>
+
+    <string name="sort_by_popularity">Popularity</string>
+    <string name="sort_by_vote_count">Vote Count</string>
+    <string name="sort_by_vote_average">Vote Average</string>
+    <string name="sort_by_release_date">Release Date</string>
+    <string name="sort_by_original_title">Original Title</string>
+    <string name="sort_by_revenue">Revenue</string>
+</resources>

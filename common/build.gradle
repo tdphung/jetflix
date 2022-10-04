@@ -7,20 +7,20 @@ android {
     namespace 'com.littlewind.jetflix.common'
     compileSdk versions.targetSdk
 
-//    defaultConfig {
-//        minSdk 21
-//        targetSdk 32
-//
-//        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-//        consumerProguardFiles "consumer-rules.pro"
-//    }
-//
-//    buildTypes {
-//        release {
-//            minifyEnabled false
-//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-//        }
-//    }
+    defaultConfig {
+        minSdk versions.minSdk
+        targetSdk versions.targetSdk
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
     buildFeatures {
         compose true
     }
@@ -39,4 +39,6 @@ android {
 dependencies {
 
     implementation libraries.compose_material
+    implementation libraries.icons_extended
+    implementation libraries.compose_ui_tooling_preview
 }
