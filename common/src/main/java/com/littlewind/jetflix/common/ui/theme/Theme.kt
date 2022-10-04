@@ -7,7 +7,12 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+
+val LocalIsAppInDarkTheme = compositionLocalOf { mutableStateOf( false) }
 
 @SuppressLint("ConflictingOnColor")
 val LightColorPalette = lightColors(

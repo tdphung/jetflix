@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Jetflix</string>
+
+    <string name="settings_content_description">Settings</string>
+    <string name="dark_theme_content_description">Use dark theme</string>
+    <string name="light_theme_content_description">Use light theme</string>
+
     <string name="movie_poster_content_description">Poster Image of %1$s</string>
 
     <string name="fetching_movies">Fetching Movies</string>
