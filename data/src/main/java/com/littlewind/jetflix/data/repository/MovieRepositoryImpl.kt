@@ -24,7 +24,7 @@ class MovieRepositoryImpl @Inject constructor(
             filterParams = filterMovieParams,
         )
         return Pager(
-            config = PagingConfig(pageSize = 20), // TODO
+            config = PagingConfig(pageSize = 20),
             pagingSourceFactory = { pagingSource },
         ).flow
     }

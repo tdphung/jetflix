@@ -21,7 +21,7 @@ data class MoviesPagingSource(
             val movies = moviesResponse.movies.map(movieMapper::mapToDomain)
             LoadResult.Page(
                 data = movies,
-                prevKey = if (page == 1) null else page - 1,
+                prevKey = if (page <= 1) null else page - 1,
                 nextKey = if (page >= moviesResponse.totalPages) null else moviesResponse.page + 1
             )
         } catch (exception: Exception) {
