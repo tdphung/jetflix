@@ -4,6 +4,8 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.LazyGridState
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FilterList
@@ -38,12 +40,18 @@ val LocalOnMovieItemClicked = compositionLocalOf<ValueCallBack<Movie>?> { null }
 fun DiscoverScreen(onMovieItemClicked: ValueCallBack<Movie>? = null) {
 
     val sheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
+    val imagesGridState = rememberLazyGridState()
     val filterViewModel = hiltViewModel<MoviesViewModel>()
     val filterState = filterViewModel.filterState.collectAsState().value
     val coroutineScope = rememberCoroutineScope()
     val hideFilterBottomSheet: VoidCallBack = {
         coroutineScope.launch {
             sheetState.hide()
+        }
+    }
+    val scrollToGridTop: VoidCallBack = {
+        coroutineScope.launch {
+            imagesGridState.scrollToItem(0)
         }
     }
 
@@ -59,11 +67,14 @@ fun DiscoverScreen(onMovieItemClicked: ValueCallBack<Movie>? = null) {
                     },
                     onHideClicked = hideFilterBottomSheet,
                     onResetClicked = if (filterState == null) null else filterViewModel::resetFilterMovieParams,
-                    onFilterStateChanged = filterViewModel::setFilterParams,
+                    onFilterStateChanged = {
+                        filterViewModel.setFilterParams(it)
+                        scrollToGridTop()
+                    },
                 )
             },
         ) {
-            DiscoverScreenContent(sheetState)
+            DiscoverScreenContent(bottomSheetState = sheetState, imagesGridState = imagesGridState)
         }
     }
 }
@@ -79,7 +90,6 @@ private fun ColumnScope.SheetContent(
 ) {
     LaunchedEffect(true) {
         onOpen()
-//        filterViewModel.fetchGenresIfNeeded()
     }
 
     FilterHeader(onHideClicked = onHideClicked, onResetClicked = onResetClicked)
@@ -101,7 +111,8 @@ private fun ColumnScope.SheetContent(
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun DiscoverScreenContent(
-    bottomSheetState: ModalBottomSheetState
+    bottomSheetState: ModalBottomSheetState,
+    imagesGridState: LazyGridState,
 ) {
     val currentTheme = LocalIsAppInDarkTheme.current
     val isDarkTheme = currentTheme.value
@@ -156,7 +167,10 @@ private fun DiscoverScreenContent(
         },
         content = {
             Box(modifier = Modifier.padding(it)) {
-                MoviesGrid(moviesViewModel)
+                MoviesGrid(
+                    state = imagesGridState,
+                    moviesFlow = moviesViewModel.movies,
+                )
             }
         }
     )

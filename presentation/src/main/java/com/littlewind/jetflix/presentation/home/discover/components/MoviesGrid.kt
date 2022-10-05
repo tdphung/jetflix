@@ -3,7 +3,6 @@ package com.littlewind.jetflix.presentation.home.discover.components
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
@@ -11,6 +10,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.littlewind.jetflix.common.ui.utils.toDp
@@ -21,9 +21,7 @@ import com.littlewind.jetflix.common.ui.widget.loading.LoadingRow
 import com.littlewind.jetflix.domain.model.movie.Movie
 import com.littlewind.jetflix.presentation.R
 import com.littlewind.jetflix.presentation.home.discover.LocalOnMovieItemClicked
-import com.littlewind.jetflix.presentation.home.discover.MoviesViewModel
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.Flow
 
 private const val COLUMN_COUNT = 2
 private val GRID_SPACING = 8.dp
@@ -31,15 +29,8 @@ private val GRID_SPACING = 8.dp
 private val span: (LazyGridItemSpanScope) -> GridItemSpan = { GridItemSpan(COLUMN_COUNT) }
 
 @Composable
-fun MoviesGrid(moviesViewModel: MoviesViewModel) {
-    val movies = moviesViewModel.movies.collectAsLazyPagingItems()
-    val state = rememberLazyGridState()
-    LaunchedEffect(Unit) {
-        moviesViewModel.filterState.onEach {
-            state.scrollToItem(0)
-            movies.refresh()
-        }.launchIn(this)
-    }
+fun MoviesGrid(state: LazyGridState, moviesFlow: Flow<PagingData<Movie>>) {
+    val movies = moviesFlow.collectAsLazyPagingItems()
 
     when (movies.loadState.refresh) {
         is LoadState.Loading -> {
