@@ -50,6 +50,7 @@ dependencies {
     implementation libraries.compose_material
     implementation libraries.icons_extended
     implementation libraries.paging_compose
+    implementation libraries.constraintLayout_compose
     implementation libraries.compose_ui_tooling_preview
 
     implementation libraries.coil

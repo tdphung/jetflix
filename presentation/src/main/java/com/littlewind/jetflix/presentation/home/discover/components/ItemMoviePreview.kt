@@ -1,4 +1,4 @@
-package com.littlewind.jetflix.presentation.home.discover
+package com.littlewind.jetflix.presentation.home.discover.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview

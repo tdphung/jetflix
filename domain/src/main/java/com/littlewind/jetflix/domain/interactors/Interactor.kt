@@ -1,5 +1,7 @@
 package com.littlewind.jetflix.domain.interactors
 
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.littlewind.android.base.base.InvokeError
 import com.littlewind.android.base.base.InvokeStarted
 import com.littlewind.android.base.base.InvokeStatus
@@ -41,6 +43,13 @@ abstract class ResultInteractor<in P, R> {
     suspend fun executeSync(params: P): R = doWork(params)
 
     protected abstract suspend fun doWork(params: P): R
+}
+
+
+abstract class PagingInteractor<P : PagingInteractor.Parameters, T : Any> : SubjectInteractor<P, PagingData<T>>() {
+    interface Parameters {
+        val pagingConfig: PagingConfig
+    }
 }
 
 abstract class SubjectInteractor<P : Any, T> {

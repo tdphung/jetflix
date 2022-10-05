@@ -1,11 +1,12 @@
 package com.littlewind.myjetflix.navigation
 
-const val ARG_MOVIE_ID = "MOVIE_ID"
-const val ARG_INITIAL_PAGE = "initialPage"
+import com.littlewind.jetflix.presentation.movie_detail.MovieDetailScreen
+
+//const val ARG_INITIAL_PAGE = "initialPage"
 
 enum class Screen(val route: String) {
-    DISCOVER("movies");
-//    DETAIL("movie/{$ARG_MOVIE_ID}/detail"),
+    DISCOVER("movies"),
+    DETAIL("movie/{${MovieDetailScreen.ARG_MOVIE_ID}}/detail");
 //    IMAGES("movie/{$ARG_MOVIE_ID}/images?$ARG_INITIAL_PAGE={$ARG_INITIAL_PAGE}"),
 //    CAST("movie/{$ARG_MOVIE_ID}/cast"),
 //    CREW("movie/{$ARG_MOVIE_ID}/crew");

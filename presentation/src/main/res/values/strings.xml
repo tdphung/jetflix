@@ -21,4 +21,20 @@
     <string name="sort_order">Sort Order</string>
     <string name="sort_by">Sort by</string>
     <string name="genres">Genres</string>
+
+    <string name="fetching_movie_detail">Fetching Movie Detail</string>
+    <string name="release_date">Release Date</string>
+    <string name="duration">Duration</string>
+    <string name="duration_minutes">%1$s min</string>
+    <string name="vote_average">Vote Avg</string>
+    <string name="votes">Votes</string>
+    <string name="cast">Cast</string>
+    <string name="crew">Crew</string>
+    <string name="images">Images</string>
+    <string name="see_all">See All(%1$d)</string>
+    <string name="production_companies">Production Companies</string>
+    <string name="backdrop_content_description">Backdrop Image of %1$s</string>
+    <string name="open_website_content_description">Open Movie Website</string>
+    <string name="back_icon_content_description">Go Back</string>
+    <string name="production_company_logo_content_description">Logo of %1$s</string>
 </resources>

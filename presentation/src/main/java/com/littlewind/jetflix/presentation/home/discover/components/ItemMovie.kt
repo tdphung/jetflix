@@ -1,4 +1,4 @@
-package com.littlewind.jetflix.presentation.home.discover
+package com.littlewind.jetflix.presentation.home.discover.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

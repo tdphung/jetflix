@@ -24,14 +24,18 @@ import com.littlewind.jetflix.common.ui.theme.LocalIsAppInDarkTheme
 import com.littlewind.jetflix.common.ui.widget.loading.LoadingColumn
 import com.littlewind.jetflix.domain.model.genre.Genre
 import com.littlewind.jetflix.domain.model.movie.FilterMovieParams
+import com.littlewind.jetflix.domain.model.movie.Movie
 import com.littlewind.jetflix.presentation.R
+import com.littlewind.jetflix.presentation.home.discover.components.MoviesGrid
 import com.littlewind.jetflix.presentation.home.discover.filter.FilterBottomSheetContent
 import com.littlewind.jetflix.presentation.home.discover.filter.FilterHeader
 import kotlinx.coroutines.launch
 
+val LocalOnMovieItemClicked = compositionLocalOf<ValueCallBack<Movie>?> { null }
+
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun DiscoverScreen() {
+fun DiscoverScreen(onMovieItemClicked: ValueCallBack<Movie>? = null) {
 
     val sheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val filterViewModel = hiltViewModel<MoviesViewModel>()
@@ -43,22 +47,24 @@ fun DiscoverScreen() {
         }
     }
 
-    ModalBottomSheetLayout(
-        sheetState = sheetState,
-        sheetContent = {
-            SheetContent(
-                filterState = filterState,
-                genres = filterViewModel.genres.collectAsState().value,
-                onOpen = {
-                    filterViewModel.fetchGenresIfNeeded()
-                },
-                onHideClicked = hideFilterBottomSheet,
-                onResetClicked = if (filterState == null) null else filterViewModel::resetFilterMovieParams,
-                onFilterStateChanged = filterViewModel::setFilterParams,
-            )
-        },
-    ) {
-        DiscoverScreenContent(sheetState)
+    CompositionLocalProvider(LocalOnMovieItemClicked provides onMovieItemClicked) {
+        ModalBottomSheetLayout(
+            sheetState = sheetState,
+            sheetContent = {
+                SheetContent(
+                    filterState = filterState,
+                    genres = filterViewModel.genres.collectAsState().value,
+                    onOpen = {
+                        filterViewModel.fetchGenresIfNeeded()
+                    },
+                    onHideClicked = hideFilterBottomSheet,
+                    onResetClicked = if (filterState == null) null else filterViewModel::resetFilterMovieParams,
+                    onFilterStateChanged = filterViewModel::setFilterParams,
+                )
+            },
+        ) {
+            DiscoverScreenContent(sheetState)
+        }
     }
 }
 

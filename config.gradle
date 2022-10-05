@@ -1,44 +1,45 @@
 ext.versions = [
-        targetSdk                  : 33,
-        minSdk                     : 21,
+        targetSdk               : 33,
+        minSdk                  : 21,
 
         // android
-        androidCore                : '1.7.0',
-        lifecycle_runtime          : '2.3.1',
-        compose_version            : '1.2.1',
-        compose_compiler           : '1.3.1',
-        activity_compose           : '1.3.1',
-        paging_compose             : '1.0.0-alpha16',
-        navigation_compose         : '2.5.2',
+        androidCore             : '1.7.0',
+        lifecycle_runtime       : '2.3.1',
+        compose_version         : '1.2.1',
+        compose_compiler        : '1.3.1',
+        activity_compose        : '1.3.1',
+        paging_compose          : '1.0.0-alpha16',
+        navigation_compose      : '2.5.2',
+        constraintLayout_compose: '1.1.0-alpha03',
 
-        coil                       : '2.2.2',
+        coil                    : '2.2.2',
 
         // coroutines
-        coroutines                 : '1.6.4',
+        coroutines              : '1.6.4',
 
         // hilt
-        hilt                       : '2.44',
-        hilt_navigation_compose    : '1.0.0',
+        hilt                    : '2.44',
+        hilt_navigation_compose : '1.0.0',
 
         // room
-        room                       : '2.4.3',
+        room                    : '2.4.3',
 
         // retrofit
-        retrofit                   : '2.9.0',
+        retrofit                : '2.9.0',
 
         // gson
-        gson                       : '2.9.1',
+        gson                    : '2.9.1',
 
         // stetho
-        stetho                     : '1.6.0',
+        stetho                  : '1.6.0',
 
         // okhttp3
-        okhttp3: '4.10.0',
+        okhttp3                 : '4.10.0',
 
         // test
-        junit                      : '4.13.2',
-        junitExt                   : '1.1.3',
-        espresso                   : '3.4.0',
+        junit                   : '4.13.2',
+        junitExt                : '1.1.3',
+        espresso                : '3.4.0',
 ]
 
 ext.libraries = [
@@ -59,6 +60,7 @@ ext.libraries = [
         compose_ui_test_manifest     : "androidx.compose.ui:ui-test-manifest:$versions.compose_version",
         paging_compose               : "androidx.paging:paging-compose:$versions.paging_compose",
         navigation_compose           : "androidx.navigation:navigation-compose:$versions.navigation_compose",
+        constraintLayout_compose     : "androidx.constraintlayout:constraintlayout-compose:$versions.constraintLayout_compose",
 
         // coil compose
         coil                         : "io.coil-kt:coil-compose:$versions.coil",

@@ -40,5 +40,6 @@ dependencies {
 
     implementation libraries.compose_material
     implementation libraries.icons_extended
+    implementation libraries.navigation_compose
     implementation libraries.compose_ui_tooling_preview
 }

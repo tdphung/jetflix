@@ -8,6 +8,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.navigation.compose.rememberNavController
+import com.littlewind.jetflix.common.ui.LocalNavController
 import com.littlewind.jetflix.common.ui.theme.LocalIsAppInDarkTheme
 import com.littlewind.jetflix.common.ui.theme.MyJetFlixTheme
 import dagger.hilt.android.AndroidEntryPoint

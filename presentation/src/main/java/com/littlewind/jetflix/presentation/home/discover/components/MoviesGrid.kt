@@ -1,8 +1,9 @@
-package com.littlewind.jetflix.presentation.home.discover
+package com.littlewind.jetflix.presentation.home.discover.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
@@ -19,6 +20,10 @@ import com.littlewind.jetflix.common.ui.widget.loading.LoadingColumn
 import com.littlewind.jetflix.common.ui.widget.loading.LoadingRow
 import com.littlewind.jetflix.domain.model.movie.Movie
 import com.littlewind.jetflix.presentation.R
+import com.littlewind.jetflix.presentation.home.discover.LocalOnMovieItemClicked
+import com.littlewind.jetflix.presentation.home.discover.MoviesViewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 private const val COLUMN_COUNT = 2
 private val GRID_SPACING = 8.dp
@@ -29,15 +34,12 @@ private val span: (LazyGridItemSpanScope) -> GridItemSpan = { GridItemSpan(COLUM
 fun MoviesGrid(moviesViewModel: MoviesViewModel) {
     val movies = moviesViewModel.movies.collectAsLazyPagingItems()
     val state = rememberLazyGridState()
-    // TODO refresh on filter and search changes
-//    LaunchedEffect(Unit) {
-//        combine(moviesViewModel.filterStateChanges, moviesViewModel.searchQueryChanges) { _, _ -> }
-//            .onEach {
-//                state.scrollToItem(0)
-//                movies.refresh()
-//            }
-//            .launchIn(this)
-//    }
+    LaunchedEffect(Unit) {
+        moviesViewModel.filterState.onEach {
+            state.scrollToItem(0)
+            movies.refresh()
+        }.launchIn(this)
+    }
 
     when (movies.loadState.refresh) {
         is LoadState.Loading -> {
@@ -55,14 +57,16 @@ fun MoviesGrid(moviesViewModel: MoviesViewModel) {
 
 @Composable
 private fun LazyMoviesGrid(state: LazyGridState, moviePagingItems: LazyPagingItems<Movie>) {
-//    val navController = LocalNavController.current
-//    val onMovieClicked: (Int) -> Unit = { movieId -> navController.navigate(Screen.DETAIL.createPath(movieId)) }  // TODO
+    val onMovieClicked = LocalOnMovieItemClicked.current
+
     LazyVerticalGrid(
         columns = GridCells.Fixed(COLUMN_COUNT),
         contentPadding = PaddingValues(
             start = GRID_SPACING,
             end = GRID_SPACING,
-            bottom = WindowInsets.navigationBars.getBottom(LocalDensity.current).toDp().dp.plus(GRID_SPACING)
+            bottom = WindowInsets.navigationBars.getBottom(LocalDensity.current).toDp().dp.plus(
+                GRID_SPACING
+            )
         ),
         horizontalArrangement = Arrangement.spacedBy(GRID_SPACING, Alignment.CenterHorizontally),
         state = state,
@@ -79,7 +83,7 @@ private fun LazyMoviesGrid(state: LazyGridState, moviePagingItems: LazyPagingIte
                     modifier = Modifier
                         .height(320.dp)
                         .padding(vertical = GRID_SPACING),
-                    onMovieClicked = {},
+                    onMovieClicked = onMovieClicked ?: {},
                 )
             }
             renderLoading(moviePagingItems.loadState)
