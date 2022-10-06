@@ -77,6 +77,8 @@ dependencies {
     implementation libraries.stethoOkhttp3
     implementation libraries.okhttp3_logging_interceptor
 
+    implementation libraries.datastore_preferences
+
     testImplementation libraries.junit
     androidTestImplementation libraries.junitExt
     androidTestImplementation libraries.espresso

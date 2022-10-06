@@ -31,6 +31,7 @@ import com.littlewind.jetflix.presentation.R
 import com.littlewind.jetflix.presentation.home.discover.components.MoviesGrid
 import com.littlewind.jetflix.presentation.home.discover.filter.FilterBottomSheetContent
 import com.littlewind.jetflix.presentation.home.discover.filter.FilterHeader
+import com.littlewind.jetflix.presentation.home.discover.settings.SettingDialog
 import kotlinx.coroutines.launch
 
 val LocalOnMovieItemClicked = compositionLocalOf<ValueCallBack<Movie>?> { null }
@@ -118,6 +119,7 @@ private fun DiscoverScreenContent(
     val isDarkTheme = currentTheme.value
     val moviesViewModel = hiltViewModel<MoviesViewModel>()
     val coroutineScope = rememberCoroutineScope()
+    val showSettingsDialog = remember { mutableStateOf(false) }
     Scaffold(
         modifier = Modifier.statusBarsPadding(),
         topBar = {
@@ -130,7 +132,7 @@ private fun DiscoverScreenContent(
                     JetflixAppBar(
                         isDarkTheme = isDarkTheme,
                         onClickSetting = {
-
+                            showSettingsDialog.value = true
                         },
                         onToggleTheme = {
                             coroutineScope.launch {
@@ -171,11 +173,15 @@ private fun DiscoverScreenContent(
                     state = imagesGridState,
                     moviesFlow = moviesViewModel.movies,
                 )
+                if (showSettingsDialog.value) {
+                    SettingDialog {
+                        showSettingsDialog.value = false
+                    }
+                }
             }
         }
     )
 }
-
 
 @Composable
 private fun JetflixAppBar(

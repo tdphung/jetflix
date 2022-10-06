@@ -38,6 +38,8 @@ dependencies {
 
     implementation libraries.paging_compose
 
+    implementation libraries.datastore_preferences
+
     implementation libraries.hilt_library
     kapt libraries.hilt_compiler
 }

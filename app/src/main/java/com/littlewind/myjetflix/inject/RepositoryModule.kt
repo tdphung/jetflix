@@ -1,6 +1,8 @@
 package com.littlewind.myjetflix.inject
 
+import com.littlewind.jetflix.data.repository.ConfigRepositoryImpl
 import com.littlewind.jetflix.data.repository.MovieRepositoryImpl
+import com.littlewind.jetflix.domain.repository.ConfigRepository
 import com.littlewind.jetflix.domain.repository.MovieRepository
 import dagger.Binds
 import dagger.Module
@@ -15,4 +17,8 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindMovieRepository(repository: MovieRepositoryImpl): MovieRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindConfigRepository(repository: ConfigRepositoryImpl): ConfigRepository
 }

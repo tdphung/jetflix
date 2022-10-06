@@ -4,11 +4,13 @@ import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.littlewind.jetflix.data.api.MovieApi
+import com.littlewind.jetflix.domain.repository.LanguageDataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import dagger.multibindings.IntoSet
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -43,8 +45,15 @@ class NetWorkModule {
 
     @Provides
     @Singleton
+    @IntoSet
+    fun provideLanguageInterceptor(languageDataStore: LanguageDataStore): Interceptor {
+        return LanguageInterceptor(languageDataStore)
+    }
+
+    @Provides
+    @Singleton
     fun provideOkClient(
-        @ApplicationContext context: Context,
+        interceptors: Set<@JvmSuppressWildcards Interceptor>
     ): OkHttpClient {
         val okHttpClientBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
 //        okHttpClientBuilder.connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
@@ -54,16 +63,19 @@ class NetWorkModule {
 //            override fun lookup(hostname: String) =
 //                InetAddress.getAllByName(hostname).toList()
 //        })
-        okHttpClientBuilder.addInterceptor(Interceptor { chain ->
-            val request = chain.request()
+        okHttpClientBuilder.interceptors().addAll(interceptors)
+        okHttpClientBuilder.addInterceptor(
+            Interceptor { chain ->
+                val request = chain.request()
 
-            // TODO extract this to other Interceptor
-            val url = request.url.newBuilder()
-                .addQueryParameter("api_key", "9487082a53af88e1866c341355155846").build()
-            val newRequest = request.newBuilder().url(url).build()
+                // TODO extract this to other Interceptor
+                val url = request.url.newBuilder()
+                    .addQueryParameter("api_key", "9487082a53af88e1866c341355155846").build()
+                val newRequest = request.newBuilder().url(url).build()
 
-            chain.proceed(newRequest)
-        })
+                chain.proceed(newRequest)
+            }
+        )
 
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY

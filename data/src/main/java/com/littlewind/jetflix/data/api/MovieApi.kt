@@ -1,6 +1,7 @@
 package com.littlewind.jetflix.data.api
 
 import com.littlewind.jetflix.data.entities.genre.GenresResponse
+import com.littlewind.jetflix.data.entities.language.LanguageResponse
 import com.littlewind.jetflix.data.entities.movie.DiscoverMoviesResponse
 import com.littlewind.jetflix.data.entities.movie.MovieDetailResponse
 import retrofit2.http.GET
@@ -21,4 +22,7 @@ interface MovieApi {
 
     @GET("movie/{movie_id}")
     suspend fun fetchMovieDetail(@Path("movie_id") movieId: Int): MovieDetailResponse
+
+    @GET("configuration/languages")
+    suspend fun fetchLanguages(): List<LanguageResponse>
 }

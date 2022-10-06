@@ -30,9 +30,6 @@ class MoviesViewModel @Inject constructor(
         )
     }
 
-    init {
-    }
-
     val movies = discoverMoviesUseCase.flow.cachedIn(viewModelScope)
 
     private val _filterState: MutableStateFlow<FilterMovieParams?> = MutableStateFlow(null)
