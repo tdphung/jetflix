@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MoviesViewModel @Inject constructor(
-    discoverMoviesUseCase: DiscoverMoviesUseCase,
+    private val discoverMoviesUseCase: DiscoverMoviesUseCase,
     private val getGenresUseCase: GetGenresUseCase,
 ) : BaseViewModel() {
     companion object {
@@ -70,6 +70,20 @@ class MoviesViewModel @Inject constructor(
         if (_genres.value == null) {
             viewModelScope.launch(Dispatchers.IO) {
                 _genres.value = getGenresUseCase(Unit).lastOrNull()
+            }
+        }
+    }
+
+    fun refreshData() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _genres.value = getGenresUseCase(Unit).lastOrNull()
+            _filterState.value ?.let {
+                discoverMoviesUseCase(
+                    DiscoverMoviesUseCase.Params(
+                        pagingConfig = PAGING_CONFIG,
+                        filterMovie = it
+                    )
+                )
             }
         }
     }

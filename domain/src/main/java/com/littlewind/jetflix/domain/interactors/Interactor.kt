@@ -63,7 +63,7 @@ abstract class SubjectInteractor<P : Any, T> {
     )
 
     val flow: Flow<T> = paramState
-        .distinctUntilChanged()
+//        .distinctUntilChanged()
         .flatMapLatest { createObservable(it) }
         .distinctUntilChanged()
 

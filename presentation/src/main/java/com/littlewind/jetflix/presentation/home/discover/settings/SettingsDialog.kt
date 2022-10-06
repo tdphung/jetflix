@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
@@ -29,10 +30,13 @@ import com.littlewind.jetflix.common.ui.widget.loading.LoadingRow
 import com.littlewind.jetflix.domain.model.language.Language
 import com.littlewind.jetflix.domain.model.language.flagUrl
 import com.littlewind.jetflix.presentation.R
+import com.littlewind.jetflix.presentation.home.discover.MoviesViewModel
 
 @Composable
 fun SettingDialog(onDismiss: VoidCallBack) {
     val settingsViewModel = hiltViewModel<SettingsViewModel>()
+    val moviesViewModel = hiltViewModel<MoviesViewModel>()
+    var isLanguageChanged by rememberSaveable { mutableStateOf(false) }
     LaunchedEffect(true) {
         settingsViewModel.fetchLanguages()
     }
@@ -42,8 +46,16 @@ fun SettingDialog(onDismiss: VoidCallBack) {
     SettingDialogContent(
         uiState = uiState,
         selectedLanguage = selectedLanguage,
-        onDialogDismiss = onDismiss,
-        onLanguageSelected = { settingsViewModel.selectLanguage(it) }
+        onDialogDismiss = {
+            onDismiss()
+            if (isLanguageChanged) {
+                moviesViewModel.refreshData()
+            }
+        },
+        onLanguageSelected = {
+            settingsViewModel.selectLanguage(it)
+            isLanguageChanged = true
+        }
     )
 }
 
