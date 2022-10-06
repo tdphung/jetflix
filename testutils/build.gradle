@@ -1,17 +1,15 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
 }
 
 android {
-    namespace 'com.littlewind.jetflix.domain'
-    compileSdk versions.targetSdk
+    namespace 'com.littlewind.testutils'
+    compileSdk 32
 
     defaultConfig {
-        minSdk versions.minSdk
-        targetSdk versions.targetSdk
+        minSdk 21
+        targetSdk 32
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -34,14 +32,7 @@ android {
 
 dependencies {
 
-    implementation project(path: ':base')
-
-    implementation libraries.paging_compose
-
-    implementation libraries.datastore_preferences
-
-    implementation libraries.hilt_library
-    kapt libraries.hilt_compiler
-
-    testImplementation project(path: ':testutils')
+    api "io.mockk:mockk:1.12.5"
+    api 'junit:junit:4.13.2'
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
 }
